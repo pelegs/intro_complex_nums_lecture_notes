@@ -19,7 +19,7 @@ def normalize(z: npt.NDArray[np.complex64]) -> npt.NDArray[np.complex64]:
     return z / np.abs(z)
 
 
-num_basis_funcs: int = 5
+num_basis_funcs: int = 50
 basis_funcs: npt.NDArray[np.float64] = np.arange(0, num_basis_funcs, dtype=np.float64)
 coeffs: npt.NDArray[np.complex64] = np.zeros(num_basis_funcs, dtype=np.complex64)
 # for n in range(num_basis_funcs):
@@ -29,9 +29,9 @@ coeffs: npt.NDArray[np.complex64] = np.zeros(num_basis_funcs, dtype=np.complex64
 #     low=0.0, high=2.0, size=num_basis_funcs
 # )
 coeffs[1] = coeffs[2] = 1.0
-coeffs[3] = coeffs[4] = 0.5
+coeffs[13] = coeffs[24] = 0.5
 
-num_steps: int = 360
+num_steps: int = 1000
 time_series: npt.NDArray[np.float64] = np.linspace(
     0, 2 * np.pi, num_steps, dtype=np.float64
 )
