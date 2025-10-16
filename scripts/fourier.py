@@ -1,3 +1,6 @@
+from turtle import width
+
+import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
@@ -44,6 +47,9 @@ z_arr: npt.NDArray[np.complex64] = np.zeros(
 for i, t in enumerate(time_series):
     z_arr[i] = coeffs * np.exp(1.0j * basis_funcs * t)
 
+# Normalizing the sequence, otherwise max values depend on coefficients
+z_arr /= np.cumsum(z_arr[0])[-1]
+
 z_sum: npt.NDArray[np.complex64] = np.sum(z_arr, axis=1)
 z_sum_real: npt.NDArray[np.float64] = np.real(z_sum).astype(np.float64)
 z_sum_imag: npt.NDArray[np.float64] = np.imag(z_sum).astype(np.float64)
@@ -54,14 +60,21 @@ z_vals: npt.NDArray[np.complex64] = np.cumsum(z_arr, axis=1)
 #  Figure #
 # ------- #
 
-fig, ax = plt.subplots(1, 2, figsize=(10, 8))
+gs = gridspec.GridSpec(4, 4, height_ratios=[1] * 4, width_ratios=[1] * 4)
 
-ax[0].set_aspect("equal", "box")
-ax[0].set_xlabel("Real")
-ax[0].set_ylabel("Imaginary")
-ax[0].set_xlim(-5, 5)
-ax[0].set_ylim(-5, 5)
-(complex_lines,) = ax[0].plot(
+# gs.update(left=0.05, right=0.95, bottom=0.08, top=0.93, wspace=0.02, hspace=0.03)
+
+ax_complex = plt.subplot(gs[0, 0])
+ax_real = plt.subplot(gs[1:, 0])
+ax_imag = plt.subplot(gs[0, 1:])
+# fig, ax = plt.subplots(1, 2, figsize=(10, 10), gridspec_kw={"width_ratios": [1, 1]})
+
+ax_complex.set_aspect("equal")
+ax_complex.set_xlabel("Real")
+ax_complex.set_ylabel("Imaginary")
+ax_complex.set_xlim(-1.2, 1.2)
+ax_complex.set_ylim(-1.2, 1.2)
+(complex_lines,) = ax_complex.plot(
     np.real(z_vals[0]),
     np.imag(z_vals[0]),
     color="green",
@@ -70,19 +83,29 @@ ax[0].set_ylim(-5, 5)
     linewidth=1,
     markersize=2,
 )
-(complex_outline,) = ax[0].plot(
+(complex_outline,) = ax_complex.plot(
     np.real(z_vals[0, -1]),
     np.imag(z_vals[0, -1]),
     color="blue",
     linewidth=1,
 )
 
-ax[1].set_xlabel("Time")
-ax[1].set_ylabel("Value (imaginary)")
-ax[1].set_xlim(0, 2 * np.pi)
-ax[1].set_ylim(-5, 5)
-(imag_line,) = ax[1].plot(
-    time_series[0], np.imag(z_vals[0, -1]), color="green", linewidth=1
+ax_imag.set_aspect("equal")
+ax_imag.set_xlabel("Time")
+ax_imag.set_ylabel("Value (imaginary)")
+ax_imag.set_xlim(0, 2 * np.pi)
+ax_imag.set_ylim(-1.2, 1.2)
+(imag_line,) = ax_imag.plot(
+    time_series[0], np.imag(z_vals[0, 0]), color="green", linewidth=1
+)
+
+ax_real.set_aspect("equal")
+ax_real.set_xlabel("Value (real)")
+ax_real.set_ylabel("Time")
+ax_real.set_xlim(-1.2, 1.2)
+ax_real.set_ylim(0, 2 * np.pi)
+(real_line,) = ax_real.plot(
+    np.real(z_vals[0, 0]), time_series[0], color="red", linewidth=1
 )
 
 
@@ -95,9 +118,11 @@ def update_animation(frame):
     complex_lines.set_data(np.real(z_vals[frame]), np.imag(z_vals[frame]))
     complex_outline.set_data(np.real(z_vals[:frame, -1]), np.imag(z_vals[:frame, -1]))
     imag_line.set_data(time_series[:frame], np.imag(z_vals[:frame, -1]))
-    return [complex_lines, complex_outline, imag_line]
+    real_line.set_data(np.real(z_vals[:frame, -1]), 2 * np.pi - time_series[:frame])
+    return [complex_lines, complex_outline, imag_line, real_line]
 
 
+fig = plt.gcf()
 animation: FuncAnimation = FuncAnimation(
     fig=fig, func=update_animation, frames=num_steps, interval=0
 )
