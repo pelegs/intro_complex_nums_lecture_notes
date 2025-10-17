@@ -34,7 +34,7 @@ coeffs: npt.NDArray[np.complex64] = np.zeros(num_basis_funcs, dtype=np.complex64
 coeffs[1] = coeffs[2] = 1.0
 coeffs[13] = coeffs[24] = 0.5
 
-num_steps: int = 1000
+num_steps: int = 360 * 4
 time_series: npt.NDArray[np.float64] = np.linspace(
     0, 2 * np.pi, num_steps, dtype=np.float64
 )
