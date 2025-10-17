@@ -2,13 +2,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
+# TODO: LaTeXify! Make everything parametrizeable
+
 ax = plt.figure().add_subplot(projection="3d")
 
-num_ticks = 100
-t = np.linspace(0, 3 * np.pi, num_ticks)
-x = np.linspace(0, 2 * np.pi, num_ticks)
-im_xs = np.ones(num_ticks)
-real_zs = -1 * np.ones(num_ticks)
+num_samples = 50
+t = np.linspace(0, 3 * np.pi, num_samples)
+x = np.linspace(0, 2 * np.pi, num_samples)
+im_xs = np.ones(num_samples)
+real_zs = -1 * np.ones(num_samples)
 
 (exp_plot,) = ax.plot(
     xs=[0, 1], ys=[0, 0], zs=0, zdir="y", label="exp(it)", linewidth=2
@@ -49,7 +51,7 @@ def update_animation(frame):
     return [exp_plot, im_plot, real_plot, im_dashes, real_dashes]
 
 
-num_frames = 36 * 4
+num_frames = 36 * 10
 fig = plt.gcf()
 animation = FuncAnimation(fig=fig, func=update_animation, frames=num_frames, interval=0)
 
