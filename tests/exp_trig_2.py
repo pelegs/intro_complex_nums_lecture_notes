@@ -9,7 +9,7 @@ ax = plt.figure().add_subplot(projection="3d")
 K = 2
 num_samples = 60 * K
 t = np.linspace(0, 2 * K * np.pi, num_samples)
-w = np.exp(1j * t)
+w = np.exp((-0.0 + 1j) * t)
 real_vals = np.real(w)
 imag_vals = np.imag(w)
 
