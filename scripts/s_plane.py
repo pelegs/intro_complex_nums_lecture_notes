@@ -4,10 +4,10 @@ import numpy as np
 from matplotlib import cm
 from matplotlib.backend_bases import MouseButton
 
-num_digits = 2
-
-num_steps = 250
-ts = np.linspace(0, 2 * np.pi, num_steps)
+num_digits = 5
+num_steps = 1000
+t_max = 10 * np.pi
+ts = np.linspace(0, t_max, num_steps)
 z = -0.2 + 1.0j
 # temp
 ws = np.exp(z * ts)
@@ -21,9 +21,10 @@ def plot_z(z):
     plt.gcf().canvas.draw_idle()
 
 
-def on_click(event):
+def on_move(event):
     global z
-    if event.button is MouseButton.LEFT:
+    if event.inaxes:
+        on_move
         a = round(event.xdata, num_digits)
         b = round(event.ydata, num_digits)
         z = a + b * 1.0j
@@ -52,8 +53,8 @@ ax_func.grid()
 ax_func.set_aspect("equal", "box")
 ax_func.set_xlabel("Real")
 ax_func.set_ylabel("Imaginary")
-ax_func.set_xlim(-5, 5)
-ax_func.set_ylim(-5, 5)
+ax_func.set_xlim(-2, 2)
+ax_func.set_ylim(-2, 2)
 (cmplx_func,) = ax_func.plot(np.real(ws), np.imag(ws), linewidth=2)
 plot_z(z)
 
@@ -61,5 +62,5 @@ plot_z(z)
 #  Connecting stuff  #
 # ------------------ #
 
-plt.connect("button_press_event", on_click)
+plt.connect("motion_notify_event", on_move)
 plt.show()
