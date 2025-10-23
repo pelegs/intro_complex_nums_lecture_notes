@@ -1,7 +1,8 @@
 \documentclass{article}
 \usepackage[a4paper, margin=2cm]{geometry}
-\usepackage{amsmath, commath, physics}
-\newcommand{\iu}{\mathrm{i}\mkern1mu}
+\usepackage{amsmath, amssymb, commath, physics}
+\newcommand{\iu}{\mathbf{i}\mkern1mu}
+\newcommand{\Eu}[1]{\mathbf{e}^{#1}}
 
 % Colors
 \usepackage{xcolor}
@@ -86,39 +87,111 @@
 \begin{document}
 \maketitle
 
-\section{Real, "Imaginary" and Complex Numbers}
-\begin{figure}
-	\begin{center}
-		\begin{tikzpicture}[scale=1]
-			\def\zcol{xblue}
-			\begin{axis}[
-					width=10cm,
-					complexplane,
-					xmin=-1, xmax=4,
-					ymin=-1, ymax=4,
-					xtick={-1,...,4},
-					ytick={-1,...,4},
-					minor tick num=3,
-				]
-				\pgfmathsetmacro{\a}{2.5}
-				\pgfmathsetmacro{\b}{3.0}
-				\draw[vector, \zcol] (0,0) -- (\a,\b) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] (z) {$z=a+\iu b$};
-				\draw[coordline, \zcol!50] (\a,\b) -- (\a,0) node[below, \zcol] {$a$};
-				\draw[coordline, \zcol!50] (\a,\b) -- (0,\b) node[left, \zcol] {$b$};
-			\end{axis}
-		\end{tikzpicture}
-	\end{center}
-	\caption{This is a test figure.}
-	\label{fig:testfig}
-\end{figure}
+\section{Why Use Complex Numbers?}
+Topics:
+\begin{enumerate}
+	\item From natural numbers to real numbers via extensions (to solve equations).
+	\item Square roots for negative real numbers as a justification for imaginary numbers.
+	\item The real line as scaling of the unit $\mathbf{1}$ and the imaginary line as scaling of the unit $\iu=\sqrt{-1}$
+	\item The real and imaginary sets as orthogonal sets except for $0$.
+\end{enumerate}
 
-\section{Algenraic Properties}
+\section{Algebraic Properties}
+\begin{enumerate}
+	\item The complex plane as a vector plane.
+	\item Addition, multiplication and conjugation of complex numbers.
+	\item The Complex norm.
+	      \begin{figure}
+		      \begin{center}
+			      \begin{tikzpicture}[scale=1]
+				      \def\zcol{xblue}
+				      \begin{axis}[
+						      width=10cm,
+						      complexplane,
+						      xmin=-1, xmax=4,
+						      ymin=-1, ymax=4,
+						      xtick={-1,...,4},
+						      ytick={-1,...,4},
+						      minor tick num=3,
+					      ]
+					      \pgfmathsetmacro{\a}{2.5}
+					      \pgfmathsetmacro{\b}{3.0}
+					      \draw[vector, \zcol] (0,0) -- (\a,\b) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] (z) {$z=a+\iu b$};
+					      \draw[coordline, \zcol!50] (\a,\b) -- (\a,0) node[below, \zcol] {$a$};
+					      \draw[coordline, \zcol!50] (\a,\b) -- (0,\b) node[left, \zcol] {$b$};
+				      \end{axis}
+			      \end{tikzpicture}
+		      \end{center}
+		      \caption{This is a test figure.}
+		      \label{fig:testfig}
+	      \end{figure}
+\end{enumerate}
+
 \section{Polar (Geomteric) Representation}
-\section{Exponential Representation}
-\section{Complex Functions}
-\section{Higher-dimension Forms}
-\section{Uses}
+\begin{enumerate}
+	\item Norm and angle as vector polar coordinates.
+	\item Transforming $z=a+\iu b$ into polar coordinates and back.
+	\item Multiplication of complex numbers in polar form: scaling and rotation (real and imaginary parts, respectively).
+	\item Using the polar form to find complex roots.
+\end{enumerate}
 
-% section  (end)
+\section{Exponential Representation}
+\subsection{Euler's Forumla}
+Exponentiating $\iu$ with non-negative integers yields the following pattern:
+\begin{align*}
+	\iu^0 & = 1    \\
+	\iu^1 & = \iu  \\
+	\iu^2 & = -1   \\
+	\iu^3 & = -\iu \\
+	\iu^4 & = 1    \\
+	\iu^5 & = \iu  \\
+	\iu^6 & = -1   \\
+	\iu^7 & = -\iu \\
+	      & \vdots
+\end{align*}
+i.e. we get the infinitely repeating sequence ${1, \iu, -1, -\iu}$.
+
+Now, the Taylor series of sine and cosine around $x_{0}=0$:
+\begin{alignat}{2}
+	\cos(x) & = \sum\limits_{k=0}^{\infty} \frac{(-1)^{n}}{(2n)!}x^{2n}     & = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots \\
+	\sin(x) & = \sum\limits_{k=0}^{\infty} \frac{(-1)^{n}}{(2n+1)!}x^{2n+1} & = x-\frac{x^3}{3!}+\frac{x^5}{5!} - \frac{x^7}{7!} + \dots
+	\label{eq:cosine_and_sine_taylor}
+\end{alignat}
+
+And of the exponential function $f(x)=\Eu{x}$ is
+\begin{equation}
+	\Eu{x} = \sum\limits_{k=0}^{\infty} \frac{x^{k}}{k!} = 1 + x + \frac{x^2}{2} + \frac{x^3}{3!} + \frac{x^4}{4!} + \dots
+	\label{eq:exp_taylor}
+\end{equation}
+
+Therefore, a generic complex number has the polar form
+\begin{equation}
+	\begin{aligned}
+		z & = R \left( \cos(\theta) + \iu\sin(\theta) \right)                                                                                                                                       \\
+		  & = R \left(1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots + \iu\left[x-\frac{x^3}{3!}+\frac{x^5}{5!} - \frac{x^7}{7!} + \dots\right] \right)                               \\
+		  & = R\left(1 + \iu x - \frac{x^2}{2!} - \frac{x^3}{3!} + \frac{x^4}{4!} + \iu\frac{x^5}{5!} - \frac{x^6}{6!} - \frac{x^7}{7!} + \dots \right)                                             \\
+		  & = R\left(\iu^0 + \iu^1 x + \iu^2 \frac{x^2}{2!} + \iu^3 \frac{x^3}{3!} + \iu^4 \frac{x^4}{4!} + \iu^5 \frac{x^5}{5!} + \iu^6 \frac{x^6}{6!} + \iu^7 \frac{x^7}{7!} + \dots \right)      \\
+		  & = R\left((\iu x)^0 + (\iu x)^1 + \frac{(\iu x)^2}{2!} + \frac{(\iu x)^3}{3!} + \frac{(\iu x)^4}{4!} + \frac{(\iu x)^5}{5!} + \frac{(\iu x)^6}{6!} + \frac{(\iu x)^7}{7!} + \dots\right) \\
+		  & = R\Eu{\iu x}.
+	\end{aligned}
+	\label{eq:}
+\end{equation}
+
+% \begin{enumerate}
+% 	\item The Taylor series of $\cos(\theta), \sin(\theta)$ and $\exp(\theta)$, and how $\exp(\iu\theta)=\cos(\theta)+\iu\sin(\theta)$. How $\exp(\iu\pi)+1=0$.
+% 	\item The complex exponential function $f(t)=\exp(\iu t)$ as the "better form" of $\sin(t)$ and $\cos(t)$ (with matplotlib animations).
+% 	\item The behaviour of the general $f(t) = \exp(z)$ function (where $z\in\mathbb{C}$).
+% \end{enumerate}
+
+\section{Introduction to Fourier Transforms}
+\begin{enumerate}
+	\item How we can compose different sines and cosines to get complicated functions (Fourier series).
+	\item From Fourier series to Fourier Transforms (FTs), and using FTs to filter/compress data (just examples).
+	\item The complex polar form of Fourier series (only imaginary terms).
+	\item How we can use Fourier series to draw closed shapes in 2D (it's really cool!).
+\end{enumerate}
+
+\section{Complex Functions?}
+\section{Higher-dimension Forms: Quaternions, Octanions, Clifford Algebras?}
 
 \end{document}
