@@ -17,14 +17,20 @@ round_threshold = 0.025
 
 
 def plot_z():
-    global z, cmplx_func, real_func, imag_func
+    global z, ts, cmplx_func, real_func, imag_func
     ws = np.exp(z * ts)
+
     cmplx_func.remove()
     (cmplx_func,) = ax_complex.plot(np.real(ws), np.imag(ws), linewidth=2, color="red")
+
     real_func.remove()
     (real_func,) = ax_real.plot(ts, np.real(ws), linewidth=2, color="blue")
+    ax_real.set_xlim(0, max(t_max, 0.1))
+
     imag_func.remove()
     (imag_func,) = ax_imag.plot(ts, np.imag(ws), linewidth=2, color="green")
+    ax_imag.set_xlim(0, max(t_max, 0.1))
+
     plt.gcf().canvas.draw_idle()
 
 
@@ -91,7 +97,7 @@ ax_complex.set_ylim(-2, 2)
 (cmplx_func,) = ax_complex.plot(np.real(ws), np.imag(ws), linewidth=2)
 
 ax_real.grid()
-ax_real.set_aspect("equal", "box")
+# ax_real.set_aspect("equal", "box")
 ax_real.set_xlabel("t")
 ax_real.set_ylabel("Imaginary")
 ax_real.set_xlim(0, ts[-1])
@@ -99,7 +105,7 @@ ax_real.set_ylim(-ts[-1] / 2, ts[-1] / 2)
 (real_func,) = ax_real.plot(ts, np.real(ws), linewidth=2, color="blue")
 
 ax_imag.grid()
-ax_imag.set_aspect("equal", "box")
+# ax_imag.set_aspect("equal", "box")
 ax_imag.set_xlabel("t")
 ax_imag.set_ylabel("Imaginary")
 ax_imag.set_xlim(0, ts[-1])
