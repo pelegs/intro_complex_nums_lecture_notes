@@ -4,12 +4,11 @@ import numpy as np
 from matplotlib import cm
 from matplotlib.backend_bases import MouseButton
 
-num_digits = 1
+num_digits = 4
 num_steps = 1000
 t_max = 10 * np.pi
 ts = np.linspace(0, t_max, num_steps)
 z = 0.0 + 1.0j
-# temp
 ws = np.exp(z * ts)
 round_threshold = 0.025
 
@@ -17,8 +16,8 @@ round_threshold = 0.025
 # later
 
 
-def plot_z(z):
-    global cmplx_func, real_func, imag_func
+def plot_z():
+    global z, cmplx_func, real_func, imag_func
     ws = np.exp(z * ts)
     cmplx_func.remove()
     (cmplx_func,) = ax_complex.plot(np.real(ws), np.imag(ws), linewidth=2, color="red")
@@ -29,6 +28,16 @@ def plot_z(z):
     plt.gcf().canvas.draw_idle()
 
 
+def on_scroll(event):
+    global t_max, ts, ws
+    t_max += event.step * np.pi
+    if t_max <= 0:
+        t_max = 0
+    ts = np.linspace(0, t_max, num_steps)
+    ws = np.exp(z * ts)
+    plot_z()
+
+
 def on_move(event):
     global z
     if event.inaxes:
@@ -37,8 +46,8 @@ def on_move(event):
         b = round(event.ydata, num_digits)
         z = a + b * 1.0j
         op = "+" if b >= 0 else "-"
-        z_coord_text.set_text(f"z={a} {op} {abs(b)} i")
-        plot_z(z)
+        z_coord_text.set_text(f"z={a:0.2f} {op} {abs(b):0.2f} i")
+        plot_z()
 
 
 # -------- #
@@ -97,7 +106,7 @@ ax_imag.set_xlim(0, ts[-1])
 ax_imag.set_ylim(-ts[-1] / 2, ts[-1] / 2)
 (imag_func,) = ax_imag.plot(ts, np.real(ws), linewidth=2, color="green")
 
-plot_z(z)
+plot_z()
 
 
 # ------------------ #
@@ -105,4 +114,5 @@ plot_z(z)
 # ------------------ #
 
 plt.connect("motion_notify_event", on_move)
+plt.connect("scroll_event", on_scroll)
 plt.show()
