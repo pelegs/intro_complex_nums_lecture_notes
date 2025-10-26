@@ -100,39 +100,56 @@ Topics:
 \section{Algebraic Properties}
 \subsection{The complex plane as a vector plane}
 \subsection{Addition, multiplication and conjugation of complex numbers}
-Addition:
+\textbf{Addition}: let $z=a + b\iu$ and $w=c + d\iu$, then
 \begin{equation}
-	z_{1} = a\ru + b\iu,\quad z_{2} = c\ru + b\iu \Rightarrow z_{1}+z_{2} = \left(a+c\right)\ru + \left(b+d\right)\iu.
+	z+w = a+b\iu + c+d\iu = (a+c) + (b+d)\iu.
 	\label{eq:addition_complex}
 \end{equation}
-\begin{enumerate}
 
-	\item The Complex norm.
-	      \begin{figure}
-		      \begin{center}
-			      \begin{tikzpicture}[scale=1]
-				      \def\zcol{xblue}
-				      \begin{axis}[
-						      width=10cm,
-						      complexplane,
-						      xmin=-1, xmax=4,
-						      ymin=-1, ymax=4,
-						      xtick={-1,...,4},
-						      ytick={-1,...,4},
-						      minor tick num=3,
-					      ]
-					      \pgfmathsetmacro{\a}{2.5}
-					      \pgfmathsetmacro{\b}{3.0}
-					      \draw[vector, \zcol] (0,0) -- (\a,\b) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] (z) {$z=a+\iu b$};
-					      \draw[coordline, \zcol!50] (\a,\b) -- (\a,0) node[below, \zcol] {$a$};
-					      \draw[coordline, \zcol!50] (\a,\b) -- (0,\b) node[left, \zcol] {$b$};
-				      \end{axis}
-			      \end{tikzpicture}
-		      \end{center}
-		      \caption{This is a test figure.}
-		      \label{fig:testfig}
-	      \end{figure}
-\end{enumerate}
+\textbf{Multiplication}: let $z=a + b\iu$ and $w=c + d\iu$, then
+\begin{equation}
+	\begin{aligned}
+		z \cdot w & = (a+b\iu)(c+d\iu)                \\
+		          & = ac + ad\iu + b\iu c + b\iu d\iu \\
+		          & = ac + (ad+bc)\iu + bd\iu^{2}     \\
+		          & = ac + (ad+bc)\iu - bd            \\
+		          & = ac-bd + (ad+bc)\iu.
+	\end{aligned}
+	\label{eq:multiplication_complex}
+\end{equation}
+
+\textbf{Dividing by $\iu$}: to find what is $\frac{1}{\iu}$ we can just multiply the fraction by $\frac{\iu}{\iu}$ (since $\frac{x}{x}=1$ for any $x\neq0$):
+\begin{equation}
+	\frac{1}{\iu} = \frac{1}{\iu}\cdot\frac{\iu}{\iu} = \frac{\iu}{\iu\cdot\iu} = \frac{\iu}{\iu^{2}} = \frac{\iu}{-1} = -\iu.
+	\label{eq:1_over_i}
+\end{equation}
+
+\textbf{Norm}: text.
+
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}[scale=1]
+			\def\zcol{xblue}
+			\begin{axis}[
+					width=10cm,
+					complexplane,
+					xmin=-1, xmax=4,
+					ymin=-1, ymax=4,
+					xtick={-1,...,4},
+					ytick={-1,...,4},
+					minor tick num=3,
+				]
+				\pgfmathsetmacro{\a}{2.5}
+				\pgfmathsetmacro{\b}{3.0}
+				\draw[vector, \zcol] (0,0) -- (\a,\b) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] (z) {$z=a+\iu b$};
+				\draw[coordline, \zcol!50] (\a,\b) -- (\a,0) node[below, \zcol] {$a$};
+				\draw[coordline, \zcol!50] (\a,\b) -- (0,\b) node[left, \zcol] {$b$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{This is a test figure.}
+	\label{fig:testfig}
+\end{figure}
 
 \section{Polar (Geomteric) Representation}
 \begin{enumerate}
