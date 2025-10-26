@@ -4,6 +4,8 @@
 \newcommand{\iu}{\mathbf{i}\mkern1mu}
 \newcommand{\ru}{\mathbf{1}\mkern1mu}
 \newcommand{\Eu}[1]{\mathbf{e}^{#1}}
+\newcommand{\cnorm}[1]{\left|#1\right|}
+\newcommand{\conj}[1]{#1^{*}}
 
 % Colors
 \usepackage{xcolor}
@@ -124,7 +126,18 @@ Topics:
 	\label{eq:1_over_i}
 \end{equation}
 
-\textbf{Norm}: text.
+\textbf{Norm}: we can define the norm of a complex number in a similar way to that of vectors in $\mathbf{R}^{2}$, i.e. for $z=a+n\iu$
+\begin{equation}
+	\cnorm{z}^{2} = a^{2}+b^{2}.
+	\label{eq:complex_norm}
+\end{equation}
+(see figure?)
+
+By defining a new property of a complex number $z=a+b\iu$ called its \textbf{conjugate}, $\conj{z}$:
+\begin{equation}
+	\conj{z} = a - b\iu.
+	\label{eq:complex_conjugate}
+\end{equation}
 
 \begin{figure}
 	\begin{center}
