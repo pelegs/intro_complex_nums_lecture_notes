@@ -7,6 +7,7 @@
 \newcommand{\Eu}[1]{\mathbf{e}^{#1}}
 \newcommand{\cnorm}[1]{\left|#1\right|}
 \newcommand{\conj}[1]{#1^{*}}
+\newcommand{\zpolar}[2]{#1\left[\cos\left(#2\right)+\iu\sin\left(#2\right)\right]}
 
 % Colors
 \usepackage{xcolor}
@@ -216,12 +217,65 @@ since for $z=a+b\iu$ we get
 \end{figure}
 
 \section{Polar (Geomteric) Representation}
-\begin{enumerate}
-	\item Norm and angle as vector polar coordinates.
-	\item Transforming $z=a+\iu b$ into polar coordinates and back.
-	\item Multiplication of complex numbers in polar form: scaling and rotation (real and imaginary parts, respectively).
-	\item Using the polar form to find complex roots.
-\end{enumerate}
+% \begin{enumerate}
+% 	\item Norm and angle as vector polar coordinates.
+% 	\item Transforming $z=a+\iu b$ into polar coordinates and back.
+% 	\item Multiplication of complex numbers in polar form: scaling and rotation (real and imaginary parts, respectively).
+% 	\item Using the polar form to find complex roots.
+% \end{enumerate}
+\subsection{Norm and angle}
+Just like with vectors in $\mathbb{R}^{2}$, we can use the polar coordinates system to describe a complex number $z=a+b\iu$: we take the norm of the number $\cnorm{z}$ as the first coordinate, and its angle with the real axis as the second coordinate (see REF).
+
+The correspondence between the Cartesian coordinates and polar coordinates are as follows:
+\begin{equation}
+	\begin{aligned}
+		\Re{z} & = r\cos\left(\varphi\right), \\
+		\Im{z} & = r\sin\left(\varphi\right). \\
+	\end{aligned}
+	\label{polar_to_cartesian_trans}
+\end{equation}
+Thus, instead of writing $z=a+b\iu$, we can write
+\begin{equation}
+	z = r\cos(\varphi) + r\sin(\varphi)\iu = \zpolar{r}{\varphi}.
+	\label{eq:}
+\end{equation}
+
+This gives as the following Transformation rules between the coordinate systems:
+\begin{equation}
+	\begin{aligned}
+		r = \cnorm{z} = \sqrt{a^{2}+b^{2}}, \\
+		\varphi = \arctan\left(\frac{\Im{z}}{\Re{z}}\right).
+	\end{aligned}
+	\label{eq:cartesian_to_polar_trans}
+\end{equation}
+
+Multiplication of complex numbers becomes very simple in polar form: let $z_{1}=\zpolar{r_{1}}{\varphi_{1}}$ and $z_{2}=\zpolar{r_{2}}{\varphi_{2}}$. We then get
+\begin{equation}
+	\begin{aligned}
+		z_{1}\cdot z_{2} & = \zpolar{r_{1}}{\varphi_{1}}\cdot\zpolar{r_{2}}{\varphi_{2}}                                                                                                                                                  \\
+		                 & = r_{1}r_{2}\left[\cos\left(\varphi_{1}\right)\cos\left(\varphi_{2}\right) + \iu\cos(\varphi_{1})\sin(\varphi_{2}) + \iu\sin(\varphi_{1})\cos(\varphi_{2}) + \iu^{2}\sin(\varphi_{1})\sin(\varphi_{2}) \right] \\
+		                 & = r_{1}r_{2}\left[\cos(\varphi_{1})\cos(\varphi_{2})-\sin(\varphi_{1})\sin(\varphi_{2}) + \iu\left[\cos(\varphi_{1})\sin(\varphi_{2})+\sin(\varphi_{1})\cos(\varphi_{2})\right]\right].
+	\end{aligned}
+	\label{eq:complex_product_polar_form_part_1}
+\end{equation}
+Recall the following two trigonometric identites:
+\begin{equation}
+	\begin{aligned}
+		\cos(a)\cos(b)-\sin(a)\sin(b) & = \cos(a+b), \\
+		\cos(a)\sin(b)+\sin(a)\cos(b) & = \sin(a+b).
+	\end{aligned}
+	\label{eq:trig_identites}
+\end{equation}
+
+Using these two identites, \autoref{eq:complex_product_polar_form_part_1} becomes very simple:
+\begin{equation}
+	z_{1}z_{2} = r_{1}r_{2}\zpolar{}{\varphi_{1}+\varphi_{2}}.
+	\label{eq:complex_product_polar_form_part_2}
+\end{equation}
+
+We can interpret the product of two complex numbers using \autoref{eq:complex_product_polar_form_part_2} as \textbf{scaling} $z_{1}$ by the norm of $z_{2}$, and \textbf{rotating} it by the angle of $z_{2}$ (or vice-versa, since the product is commutative).
+
+(FIGURE?)
 
 \section{Exponential Representation}
 \subsection{Euler's Forumla}
