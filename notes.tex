@@ -166,7 +166,7 @@ since for $z=a+b\iu$ we get
 		\begin{tikzpicture}[scale=1]
 			\def\zcol{xblue}
 			\begin{axis}[
-					width=13cm,
+					width=10cm,
 					complexplane,
 					xmin=-1, xmax=4,
 					ymin=-1, ymax=4,
@@ -192,7 +192,7 @@ since for $z=a+b\iu$ we get
 			\def\zcol{xblue}
 			\def\zconjcol{xred}
 			\begin{axis}[
-					width=13cm,
+					width=10cm,
 					complexplane,
 					axis equal=false,
 					xmin=-1, xmax=4,
@@ -248,6 +248,29 @@ This gives as the following Transformation rules between the coordinate systems:
 	\end{aligned}
 	\label{eq:cartesian_to_polar_trans}
 \end{equation}
+
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}[scale=1]
+			\def\zcol{xblue}
+			\begin{axis}[
+					width=10cm,
+					complexplane,
+					xmin=-1, xmax=4,
+					ymin=-1, ymax=4,
+					xtick={-1,...,4},
+					ytick={-1,...,4},
+					minor tick num=3,
+				]
+				\pgfmathsetmacro{\a}{2.5}
+				\pgfmathsetmacro{\b}{3.0}
+				\draw[vector, \zcol] (0,0) -- (\a,\b) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] (z) {$z=a+\iu b$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\caption{Complex number $z=a+b\iu$ in its polar form $\zpolar{r}{\varphi}$.}
+	\label{fig:polar_form}
+\end{figure}
 
 Multiplication of complex numbers becomes very simple in polar form: let $z_{1}=\zpolar{r_{1}}{\varphi_{1}}$ and $z_{2}=\zpolar{r_{2}}{\varphi_{2}}$. We then get
 \begin{equation}
@@ -309,14 +332,14 @@ And of the exponential function $f(x)=\Eu{x}$ is
 Therefore, a generic complex number has the polar form
 \begin{equation}
 	\begin{aligned}
-		z & = R \left( \cos(\theta) + \iu\sin(\theta) \right)                                                                                                                                       \\
-		  & = R \left(1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots + \iu\left[x-\frac{x^3}{3!}+\frac{x^5}{5!} - \frac{x^7}{7!} + \dots\right] \right)                               \\
-		  & = R\left(1 + \iu x - \frac{x^2}{2!} - \frac{x^3}{3!} + \frac{x^4}{4!} + \iu\frac{x^5}{5!} - \frac{x^6}{6!} - \frac{x^7}{7!} + \dots \right)                                             \\
-		  & = R\left(\iu^0 + \iu^1 x + \iu^2 \frac{x^2}{2!} + \iu^3 \frac{x^3}{3!} + \iu^4 \frac{x^4}{4!} + \iu^5 \frac{x^5}{5!} + \iu^6 \frac{x^6}{6!} + \iu^7 \frac{x^7}{7!} + \dots \right)      \\
-		  & = R\left((\iu x)^0 + (\iu x)^1 + \frac{(\iu x)^2}{2!} + \frac{(\iu x)^3}{3!} + \frac{(\iu x)^4}{4!} + \frac{(\iu x)^5}{5!} + \frac{(\iu x)^6}{6!} + \frac{(\iu x)^7}{7!} + \dots\right) \\
-		  & = R\Eu{\iu x}.
+		z & = \zpolar{r}{\varphi}                                                                                                                                                                                                                   \\
+		  & = r \left(1 - \frac{\varphi^2}{2!} + \frac{\varphi^4}{4!} - \frac{\varphi^6}{6!} + \dots + \iu\left[\varphi-\frac{\varphi^3}{3!}+\frac{\varphi^5}{5!} - \frac{\varphi^7}{7!} + \dots\right] \right)                                     \\
+		  & = r\left(1 + \iu \varphi - \frac{\varphi^2}{2!} - \frac{\varphi^3}{3!} + \frac{\varphi^4}{4!} + \iu\frac{\varphi^5}{5!} - \frac{\varphi^6}{6!} - \frac{\varphi^7}{7!} + \dots \right)                                                   \\
+		  & = r\left(\iu^0 + \iu^1 \varphi + \iu^2 \frac{\varphi^2}{2!} + \iu^3 \frac{\varphi^3}{3!} + \iu^4 \frac{\varphi^4}{4!} + \iu^5 \frac{\varphi^5}{5!} + \iu^6 \frac{\varphi^6}{6!} + \iu^7 \frac{\varphi^7}{7!} + \dots \right)            \\
+		  & = r\left((\iu \varphi)^0 + (\iu \varphi)^1 + \frac{(\iu \varphi)^2}{2!} + \frac{(\iu \varphi)^3}{3!} + \frac{(\iu \varphi)^4}{4!} + \frac{(\iu \varphi)^5}{5!} + \frac{(\iu \varphi)^6}{6!} + \frac{(\iu \varphi)^7}{7!} + \dots\right) \\
+		  & = r\Eu{\iu \varphi}.
 	\end{aligned}
-	\label{eq:}
+	\label{eq:eulers_formula}
 \end{equation}
 
 % \begin{enumerate}
