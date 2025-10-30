@@ -34,7 +34,7 @@
 
 % Graphics and figures
 \usepackage{tikz, pgfplots}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows, angles, decorations}
 \tikzset{
 	vector/.style={-stealth, ultra thick, cap=round},
     coordline/.style={very thick, dotted, black!75},
@@ -92,14 +92,23 @@
 		},
 }
 
+% For box
+\usepackage{tcolorbox}
+
 
 \setlength{\parindent}{0cm}
+\setlength{\parskip}{0.5em}
 
 \title{Introduction to Complex Numbers and Their Uses}
 \author{Peleg Bar Sapir}
 
 \begin{document}
 \maketitle
+
+\begin{tcolorbox}[colback=black!2, colframe=black]
+	\textbf{Important note!} These notes are intended for me, the lecturer, and are therefore very brief and don't convey the material in the same way the lecture does. They can be used by students with this in mind.
+\end{tcolorbox}
+
 
 \section{Why Use Complex Numbers?}
 Topics:
@@ -252,7 +261,6 @@ This gives as the following Transformation rules between the coordinate systems:
 \begin{figure}
 	\begin{center}
 		\begin{tikzpicture}[scale=1]
-			\def\zcol{xblue}
 			\begin{axis}[
 					width=10cm,
 					complexplane,
@@ -264,7 +272,13 @@ This gives as the following Transformation rules between the coordinate systems:
 				]
 				\pgfmathsetmacro{\a}{2.5}
 				\pgfmathsetmacro{\b}{3.0}
-				\draw[vector, \zcol] (0,0) -- (\a,\b) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] (z) {$z=a+\iu b$};
+				\pgfmathsetmacro{\phi}{atan(3/2.5)}
+				\coordinate (O) at (0,0);
+				\coordinate (a) at (\a,0);
+				\coordinate (z) at (\a,\b);
+				\draw[vector, xblue] (O) -- (z) node [anchor=west, pos=1.05, xshift=-10pt, yshift=5pt] {$z=a+\iu b$};
+				\pic[draw, xred, -stealth, thick, angle radius=2cm, angle eccentricity=1.1, pic text=$\varphi$]{angle=a--O--z};
+				\draw[xred, dashed, decoration={brace, raise=7pt}, decorate] (O) -- node[above=25pt, left=5pt, rotate=\phi] {$r=\cnorm{z}$} (z);
 			\end{axis}
 		\end{tikzpicture}
 	\end{center}
@@ -272,6 +286,7 @@ This gives as the following Transformation rules between the coordinate systems:
 	\label{fig:polar_form}
 \end{figure}
 
+\subsection{Product of Complex Numbers}
 Multiplication of complex numbers becomes very simple in polar form: let $z_{1}=\zpolar{r_{1}}{\varphi_{1}}$ and $z_{2}=\zpolar{r_{2}}{\varphi_{2}}$. We then get
 \begin{equation}
 	\begin{aligned}
@@ -298,7 +313,23 @@ Using these two identites, \autoref{eq:complex_product_polar_form_part_1} become
 
 We can interpret the product of two complex numbers using \autoref{eq:complex_product_polar_form_part_2} as \textbf{scaling} $z_{1}$ by the norm of $z_{2}$, and \textbf{rotating} it by the angle of $z_{2}$ (or vice-versa, since the product is commutative).
 
-(FIGURE?)
+A general product of $n\in\mathbb{N}$ non-zero complex numbers $z_{1},z_{2},\dots,z_{n}\in\mathbb{C}$ (each with norm $r_{k}$ and angle $\varphi_{k}$) takes the following polar form:
+\begin{equation}
+	\begin{aligned}
+		\prod\limits_{k=1}^{n}z_{k} & = r_{1}r_{2}\dots r_{n}\left[ \cos(\varphi_{1}+\varphi_{2}+\dots+\varphi_{n} + \iu\sin(\varphi_{1}+\varphi_{2}+\dots+\varphi_{n})) \right] \\
+		                            & = \zpolar{\prod\limits_{k=1}^{n}r_{k}}{\sum\limits_{k=1}^{n}\varphi_{k}}                                                                   \\
+		                            & = \zpolar{R}{\Phi},
+	\end{aligned}
+	\label{eq:product_of_n_complex_nums}
+\end{equation}
+where $R = \prod\limits_{k=1}^{n}r_{k}$, and $\Phi=\sum\limits_{k=1}^{n}\varphi_{k}$.
+
+\subsection{Roots of Complex Numbers}
+If $w=\zpolar{r_{w}}{\varphi_{w}}$ is the n-th root of $z=\zpolar{r_{z}}{\varphi_{z}}$ then for $w^{n}=z$ we get that $r_{w}^{n}=r_{z}$ and that $n\varphi_{w}=\varphi_{z} + 2\pi k$, where $k\in\mathbb{Z}$, and therefore
+\begin{equation}
+	z^{\frac{1}{n}} = \zpolar{\sqrt[n]{r_{z}}}{\frac{\varphi_{z}+2\pi k}{n}}.
+	\label{eq:nth_root_of_z}
+\end{equation}
 
 \section{Exponential Representation}
 \subsection{Euler's Forumla}
