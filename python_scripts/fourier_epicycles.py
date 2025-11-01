@@ -54,11 +54,11 @@ pts_spatial_complex = np.array(
 )
 
 time_list = np.linspace(0, 2 * np.pi, pts_spatial_complex.shape[0])
-num_steps = 1000
+num_steps = 200
 time_series = np.linspace(0, 2 * np.pi, num_steps)
 pts_interpolated = np.interp(time_series, time_list, pts_spatial_complex)
 
-N = 3
+N = 40
 freqs = np.arange(-N, N + 1, 1)
 coeffs = np.zeros(2 * N + 1, dtype=np.complex128)
 for i, k in enumerate(freqs):
@@ -76,6 +76,8 @@ for i, k in enumerate(freqs):
     )
 coeff_norms = np.abs(coeffs)
 coeffs_sorted = np.argsort(coeff_norms)
+# In the next two lines the coefficients and frequencies arrays are sorted by the
+# absolute value of the coefficients (so that the circles shrink with index)
 coeffs = coeffs[np.flip(coeffs_sorted)]
 freqs = freqs[np.flip(coeffs_sorted)]
 
