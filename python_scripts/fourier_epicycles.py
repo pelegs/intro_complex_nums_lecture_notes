@@ -1,19 +1,33 @@
-from turtle import circle
+import argparse
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 from matplotlib.patches import Circle
 from scipy.integrate import quad_vec
+from tqdm import tqdm
 
-
-def as_polar(z):
-    return np.array([np.abs(z), np.angle(z)])
-
-
-def as_cartesian(radii, angles):
-    return radii * np.exp(angles * 1j)
-
+parser = argparse.ArgumentParser(
+    prog="Simple Fourier epicycle animation",
+    description="Calculates and animates Fourier epicycles for a given path",
+)
+parser.add_argument(
+    "--N",
+    "--num_circles",
+    type=int,
+    help="Number of Fourier circles to calculate",
+    default=10,
+)
+parser.add_argument(
+    "--t",
+    "--num_steps",
+    type=int,
+    help="Number of time steps (and thus, frames) for animation (time is always in [0, 2pi))",
+    default=250,
+)
+args = parser.parse_args()
+N = args.N
+num_steps = args.t
 
 pts_spatial_complex = np.array(
     [
@@ -52,16 +66,19 @@ pts_spatial_complex = np.array(
         2 + 2j,
     ]
 )
+pts_spatial_complex = np.load("paths/treble-clef.npy")[::100]
+pts_spatial_complex -= np.mean(pts_spatial_complex)
+max_abs_pt = np.max(np.abs(pts_spatial_complex))
 
 time_list = np.linspace(0, 2 * np.pi, pts_spatial_complex.shape[0])
-num_steps = 200
 time_series = np.linspace(0, 2 * np.pi, num_steps)
 pts_interpolated = np.interp(time_series, time_list, pts_spatial_complex)
 
-N = 40
 freqs = np.arange(-N, N + 1, 1)
 coeffs = np.zeros(2 * N + 1, dtype=np.complex128)
-for i, k in enumerate(freqs):
+
+pbar = tqdm(freqs, desc="Calculating Fourier coefficients")
+for i, k in enumerate(pbar):
     coeffs[i] = (
         1
         / (2 * np.pi)
@@ -93,20 +110,25 @@ fig, ax = plt.subplots()
 ax.set_title("Epicycles?")
 ax.set_xlabel("Real")
 ax.set_ylabel("Imaginary")
-ax.set_xlim(-4, 4)
-ax.set_ylim(-4, 4)
+ax.set_xlim(-1.5 * max_abs_pt, 1.5 * max_abs_pt)
+ax.set_ylim(-1.5 * max_abs_pt, 1.5 * max_abs_pt)
 ax.set_aspect("equal", "box")
 ax.grid()
 
-ax.plot(np.real(pts_interpolated), np.imag(pts_interpolated), "o")
-(plot_lines,) = ax.plot(np.real(circle_centers[0]), np.imag(circle_centers[0]))
+# ax.plot(np.real(pts_interpolated), np.imag(pts_interpolated))
+(plot_lines,) = ax.plot(
+    np.real(circle_centers[0]), np.imag(circle_centers[0]), c="black"
+)
 (total_path,) = ax.plot(
     [np.real(circle_centers[0, -1])], [np.imag(circle_centers[0, -1])], c="red"
 )
 circle_patches = []
 for circle, coeff in zip(circle_centers[0], coeffs):
     circle_patch = Circle(
-        xy=(np.real(circle), np.imag(circle)), radius=np.abs(coeff), fill=False
+        xy=(np.real(circle), np.imag(circle)),
+        radius=np.abs(coeff),
+        fill=False,
+        color="purple",
     )
     circle_patches.append(circle_patch)
     ax.add_patch(circle_patch)
