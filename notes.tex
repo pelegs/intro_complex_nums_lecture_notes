@@ -431,6 +431,24 @@ Similarly for the RHS:
 \end{equation}
 just like the LHS.
 
+Let's do another one: $\cos(x)+\cos(y)=2\cos\left(\frac{x+y}{2}\right)\cos\left(\frac{x-y}{2}\right)$. LHS:
+\begin{equation}
+	\cos(x)+\cos(y) = \frac{1}{2}\left(\Eu{\iu x} + \Eu{-\iu x} + \Eu{\iu y} + \Eu{-\iu y}\right)
+	\label{eq:}
+\end{equation}
+RHS:
+\begin{equation}
+	\begin{aligned}
+		2\cos\left(\frac{x+y}{2}\right)\cos\left(\frac{x-y}{2}\right) & = \frac{1}{2}\left(\Eu{\iu \frac{x+y}{2}}+\Eu{-\iu \frac{x+y}{2}}\right)\left(\Eu{\iu \frac{x-y}{2}}+\Eu{-\iu \frac{x-y}{2}}\right)                                                                           \\
+		                                                              & = \frac{1}{2}\left(\Eu{\frac{\iu}{2}(x+y+x-y)}+\Eu{\frac{\iu}{2}(x+y-x+y)}+\Eu{\frac{\iu}{2}(-x-y+x-y)}+\Eu{\frac{\iu}{2}(x-x-y-y)}\right)                                                                    \\
+		                                                              & = \frac{1}{\Ccancel{2}}\left(\Eu{\frac{\Ccancel{2}\iu x}{\Ccancel{2}}}+\Eu{\frac{\Ccancel{2}\iu y}{\Ccancel{2}}}+\Eu{-\frac{\Ccancel{2}\iu y}{\Ccancel{2}}}+\Eu{-\frac{\Ccancel{2}\iu x}{\Ccancel{2}}}\right) \\
+		                                                              & = \frac{1}{2}\left(\Eu{\iu x}+\Eu{\iu y}+\Eu{-\iu y}+\Eu{-\iu x}\right)                                                                                                                                       \\
+		                                                              & = \frac{1}{2}\left(\Eu{\iu x} + \Eu{-\iu x} + \Eu{\iu y} + \Eu{-\iu y}\right)                                                                                                                                 \\
+		                                                              & = \cos(x)+\cos(y).
+	\end{aligned}
+	\label{eq:}
+\end{equation}
+
 % \begin{enumerate}
 % 	\item The Taylor series of $\cos(\theta), \sin(\theta)$ and $\exp(\theta)$, and how $\exp(\iu\theta)=\cos(\theta)+\iu\sin(\theta)$. How $\exp(\iu\pi)+1=0$.
 % 	\item The complex exponential function $f(t)=\exp(\iu t)$ as the "better form" of $\sin(t)$ and $\cos(t)$ (with matplotlib animations).
