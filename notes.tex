@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[a4paper, margin=2cm]{geometry}
 \usepackage{hyperref}
-\usepackage{amsmath, amssymb, commath, physics}
+\usepackage{amsmath, amssymb, commath, physics, siunitx}
 \newcommand{\iu}{\mathbf{i}\mkern1mu}
 \newcommand{\ru}{\mathbf{1}\mkern1mu}
 \newcommand{\Eu}[1]{\mathbf{e}^{#1}}
@@ -246,7 +246,7 @@ The correspondence between the Cartesian coordinates and polar coordinates are a
 Thus, instead of writing $z=a+b\iu$, we can write
 \begin{equation}
 	z = r\cos(\varphi) + r\sin(\varphi)\iu = \zpolar{r}{\varphi}.
-	\label{eq:}
+	\label{eq:complex_number_polar_form}
 \end{equation}
 
 This gives as the following Transformation rules between the coordinate systems:
@@ -372,6 +372,64 @@ Therefore, a generic complex number has the polar form
 	\end{aligned}
 	\label{eq:eulers_formula}
 \end{equation}
+
+The last equality is called \textbf{Euler's formula}. Here it is explicitly:
+\begin{equation}
+	\Eu{\iu\varphi} = \cos(\varphi) + \iu\sin(\varphi).
+	\label{eq:eulers_formula_excplicit}
+\end{equation}
+
+For the specific case $\varphi=\pi$\footnote{recall that $\pi$ radians $=\ang{180}$.} we get another famous relation:
+\begin{equation}
+	\Eu{\iu\pi} = \cos(\pi) + \Ccancel{\iu\sin(\pi)} = -1 + 0 = -1,
+	\label{eq:eulers_identity}
+\end{equation}
+or in a "prettier" form:
+\begin{equation}
+	\Eu{\iu\pi} + 1 = 0.
+	\label{eq:eulers_identity_prettier}
+\end{equation}
+
+\subsection{Benefits of the Exponential Representation}
+Exponenting by a complex number: let $z=a+\iu b$, then
+\begin{equation}
+	\Eu{z} = \Eu{a+\iu b} = \Eu{a}\Eu{\iu b}.
+	\label{eq:separation_of_complex_exponent}
+\end{equation}
+This shows that $a$, the real part of $z$, controls scaling - while $b$, its imaginary part, controls rotation.
+
+Proving trigonometric identities becomes almost trivial using the exponential representation. We start by showing how $\sin(x)$ and $\cos(x)$ can be expressed using exponentials. Let's write
+\begin{equation}
+	\begin{aligned}
+		\Eu{\iu x}  & = \cos(x)+\iu\sin(x), \\
+		\Eu{-\iu x} & = \cos(x)-\iu\sin(x).
+	\end{aligned}
+	\label{eq:imaginary_exp_plus_minus}
+\end{equation}
+By adding and subtracting the two equations, we get, respectively:
+\begin{equation}
+	\begin{aligned}
+		\cos(x) & = \frac{\Eu{\iu x}+\Eu{-\iu x}}{2},    \\
+		\sin(x) & = \frac{\Eu{\iu x}-\Eu{-\iu x}}{2\iu}.
+	\end{aligned}
+	\label{eq:cos_sin_exp_form}
+\end{equation}
+
+Using these definitions the process of proving so-called \textit{trigonometric identities} becomes almost trivial. For example, let's use it to prove the identity $\sin(2x)=2\sin(x)\cos(x)$: we start by writing $\sin(2x)$ in the exponent form:
+\begin{equation}
+	\sin(2x) = \frac{1}{2\iu}\left(\Eu{2\iu x}-\Eu{-2\iu x}\right).
+	\label{eq:}
+\end{equation}
+Similarly for the RHS:
+\begin{equation}
+	\begin{aligned}
+		2\sin(x)\cos(x) & = \Ccancel{2}\frac{\Eu{\iu x}+\Eu{-\iu x}}{\Ccancel{2}}\frac{\Eu{\iu x}-\Eu{-\iu x}}{2\iu}                            \\
+		                & = \frac{1}{2\iu}\Eu{\iu x}\Eu{\iu x}-\Ccancel{\Eu{\iu x}\Eu{-\iu x} + \Eu{-\iu x}\Eu{\iu x} }- \Eu{-\iu x}\Eu{-\iu x} \\
+		                & = \frac{1}{2\iu}\left(\Eu{2\iu x}-\Eu{-2\iu x}\right),
+	\end{aligned}
+	\label{eq:}
+\end{equation}
+just like the LHS.
 
 % \begin{enumerate}
 % 	\item The Taylor series of $\cos(\theta), \sin(\theta)$ and $\exp(\theta)$, and how $\exp(\iu\theta)=\cos(\theta)+\iu\sin(\theta)$. How $\exp(\iu\pi)+1=0$.
