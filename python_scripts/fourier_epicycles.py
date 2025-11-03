@@ -10,6 +10,7 @@ from tqdm import tqdm
 parser = argparse.ArgumentParser(
     prog="Simple Fourier epicycle animation",
     description="Calculates and animates Fourier epicycles for a given path",
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
 parser.add_argument(
     "--N",
@@ -25,48 +26,25 @@ parser.add_argument(
     help="Number of time steps (and thus, frames) for animation (time is always in [0, 2pi))",
     default=250,
 )
+parser.add_argument(
+    "--k",
+    "--pts_step",
+    type=int,
+    help="Take every k-th point",
+    default=1,
+)
+parser.add_argument(
+    "--f",
+    "--filename",
+    type=str,
+    help="Filename of points data (npy format)",
+    default="paths/rectangle.npy",
+)
 args = parser.parse_args()
 N = args.N
 num_steps = args.t
 
-pts_spatial_complex = np.array(
-    [
-        2 + 2j,
-        2 + 1.5j,
-        2 + 1j,
-        2 + 0.5j,
-        2 + 0j,
-        2 - 0.5j,
-        2 - 1j,
-        2 - 1.5j,
-        2 - 2j,
-        1.5 - 2j,
-        1 - 2j,
-        0.5 - 2j,
-        0 - 2j,
-        -0.5 - 2j,
-        -1 - 2j,
-        -1.5 - 2j,
-        -2 - 2j,
-        -2 - 1.5j,
-        -2 - 1j,
-        -2 - 0.5j,
-        -2 + 0j,
-        -2 + 0.5j,
-        -2 + 1j,
-        -2 + 1.5j,
-        -2 + 2j,
-        -1.5 + 2j,
-        -1 + 2j,
-        -0.5 + 2j,
-        0 + 2j,
-        0.5 + 2j,
-        1 + 2j,
-        1.5 + 2j,
-        2 + 2j,
-    ]
-)
-pts_spatial_complex = np.load("paths/treble-clef.npy")[::100]
+pts_spatial_complex = np.load(args.f)[:: args.k]
 pts_spatial_complex -= np.mean(pts_spatial_complex)
 max_abs_pt = np.max(np.abs(pts_spatial_complex))
 
