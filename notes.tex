@@ -105,7 +105,7 @@
 \begin{document}
 \maketitle
 
-\begin{tcolorbox}[colback=black!2, colframe=black]
+\begin{tcolorbox}[colback=red!10, colframe=black]
 	\textbf{Important note!} These notes are intended for me, the lecturer, and are therefore very brief and don't convey the material in the same way the lecture does. They can be used by students with this in mind.
 \end{tcolorbox}
 
@@ -120,7 +120,7 @@ Topics:
 \end{enumerate}
 
 \section{Algebraic Properties}
-\subsection{The complex plane as a vector plane}
+\subsection{The Complex Plane as a Vector Plane}
 \subsection{Addition, multiplication and conjugation of complex numbers}
 \textbf{Addition}: let $z=a + b\iu$ and $w=c + d\iu$, then
 \begin{equation}
@@ -233,7 +233,7 @@ since for $z=a+b\iu$ we get
 % 	\item Using the polar form to find complex roots.
 % \end{enumerate}
 \subsection{Norm and angle}
-Just like with vectors in $\mathbb{R}^{2}$, we can use the polar coordinates system to describe a complex number $z=a+b\iu$: we take the norm of the number $\cnorm{z}$ as the first coordinate, and its angle with the real axis as the second coordinate (see REF).
+Just like with vectors in $\mathbb{R}^{2}$, we can use the polar coordinates system to describe a complex number $z=a+b\iu$: we take the norm of the number $\cnorm{z}$ as the first coordinate, and its angle with the real axis as the second coordinate (see \autoref{fig:testfig}).
 
 The correspondence between the Cartesian coordinates and polar coordinates are as follows:
 \begin{equation}
@@ -332,7 +332,7 @@ If $w=\zpolar{r_{w}}{\varphi_{w}}$ is the n-th root of $z=\zpolar{r_{z}}{\varphi
 \end{equation}
 
 \section{Exponential Representation}
-\subsection{Euler's Forumla}
+\subsection{Euler's Formula}
 Exponentiating $\iu$ with non-negative integers yields the following pattern:
 \begin{align*}
 	\iu^0 & = 1    \\
@@ -399,7 +399,6 @@ Exponenting by a complex number: let $z=a+\iu b$, then
 \end{equation}
 This shows that $a$, the real part of $z$, controls scaling - while $b$, its imaginary part, controls rotation.
 
-\subsubsection{Trigonometric Identities}
 Proving trigonometric identities becomes almost trivial using the exponential representation. We start by showing how $\sin(x)$ and $\cos(x)$ can be expressed using exponentials. Let's write
 \begin{equation}
 	\begin{aligned}
